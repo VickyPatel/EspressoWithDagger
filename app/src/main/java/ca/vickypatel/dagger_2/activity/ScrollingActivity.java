@@ -1,5 +1,6 @@
 package ca.vickypatel.dagger_2.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import javax.inject.Inject;
 
@@ -31,8 +33,18 @@ public class ScrollingActivity extends AppCompatActivity {
         ((MyApplication)getApplication()).getComponent().inject(this);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("Name","vicky");
+        editor.putString("Name", "vicky");
         editor.apply();
+
+
+        Button button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ScrollingActivity.this,DisplayActivity.class);
+                startActivity(intent);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

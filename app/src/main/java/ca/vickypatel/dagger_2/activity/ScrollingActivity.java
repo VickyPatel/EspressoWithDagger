@@ -1,5 +1,6 @@
-package ca.vickypatel.dagger_2;
+package ca.vickypatel.dagger_2.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,7 +10,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import javax.inject.Inject;
+
+import ca.vickypatel.dagger_2.R;
+import ca.vickypatel.dagger_2.extras.MyApplication;
+
 public class ScrollingActivity extends AppCompatActivity {
+
+    @Inject
+    public SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +26,13 @@ public class ScrollingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        ((MyApplication)getApplication()).getComponent().inject(this);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("Name","vicky");
+        editor.apply();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

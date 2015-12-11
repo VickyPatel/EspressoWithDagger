@@ -9,10 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+
 import javax.inject.Inject;
 
 import ca.vickypatel.dagger_2.R;
 import ca.vickypatel.dagger_2.extras.MyApplication;
+import ca.vickypatel.dagger_2.network.VolleySingleton;
 
 public class DisplayActivity extends AppCompatActivity {
 
@@ -31,7 +34,6 @@ public class DisplayActivity extends AppCompatActivity {
         String string = sharedPreferences.getString("Name", "");
         TextView textView = (TextView) findViewById(R.id.text);
         textView.setText("Hello " + string);
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

@@ -11,10 +11,10 @@ import dagger.Component;
  * Created by vicky on 10/12/15.
  */
 
-@Singleton
-@Component(modules = StorageModule.class)
+//@Singleton
+//@Component(modules = StorageModule.class)
 public interface StorageComponent {
-
-    void inject(ScrollingActivity scrollingActivity);
-    void inject(DisplayActivity displayActivity);
+//
+//    void inject(ScrollingActivity scrollingActivity);
+//    void inject(DisplayActivity displayActivity);
 }

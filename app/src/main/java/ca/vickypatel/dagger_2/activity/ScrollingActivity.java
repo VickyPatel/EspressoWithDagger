@@ -12,15 +12,33 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import ca.vickypatel.dagger_2.R;
 import ca.vickypatel.dagger_2.extras.MyApplication;
+import ca.vickypatel.dagger_2.network.VolleySingleton;
 
 public class ScrollingActivity extends AppCompatActivity {
 
     @Inject
     public SharedPreferences sharedPreferences;
+
+    @Inject
+    public VolleySingleton volleySingleton;
+
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,19 +48,30 @@ public class ScrollingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        ((MyApplication)getApplication()).getComponent().inject(this);
+        ((MyApplication) getApplication()).getComponent().inject(this);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("Name", "vicky");
         editor.apply();
 
-
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ScrollingActivity.this,DisplayActivity.class);
+                Intent intent = new Intent(ScrollingActivity.this, DisplayActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        volleySingleton = VolleySingleton.getInstance();
+        requestQueue = volleySingleton.getRequestQueue();
+
+
+        final Button makeNetworkCall = (Button) findViewById(R.id.makeNetworkCall);
+        makeNetworkCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeCall();
             }
         });
 
@@ -76,4 +105,36 @@ public class ScrollingActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    private void makeCall() {
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                "http://jsonplaceholder.typicode.com/posts/1",
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response.toString());
+                    }
+
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+
+                HashMap<String, String> headers = new HashMap<String, String>();
+                //headers.put("Content-Type", "application/json");
+                return headers;
+            }
+
+        };
+
+        requestQueue.add(jsonObjReq);
+
+    }
+
 }

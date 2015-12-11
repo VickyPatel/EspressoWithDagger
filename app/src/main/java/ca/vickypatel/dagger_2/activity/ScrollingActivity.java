@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -19,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -38,7 +40,8 @@ public class ScrollingActivity extends AppCompatActivity {
     @Inject
     public VolleySingleton volleySingleton;
 
-    private RequestQueue requestQueue;
+    @Inject
+    public RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +66,6 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
-        volleySingleton = VolleySingleton.getInstance();
-        requestQueue = volleySingleton.getRequestQueue();
 
 
         final Button makeNetworkCall = (Button) findViewById(R.id.makeNetworkCall);
@@ -113,6 +114,11 @@ public class ScrollingActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         System.out.println(response.toString());
+                        try {
+                            Toast.makeText(getApplicationContext(),response.getString("title"),Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                 }, new Response.ErrorListener() {

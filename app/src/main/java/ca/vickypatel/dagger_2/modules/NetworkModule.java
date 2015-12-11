@@ -20,9 +20,9 @@ public class NetworkModule {
         return VolleySingleton.getInstance();
     }
 
-//    @Singleton
-//    @Provides
-//    RequestQueue provideRequestQueue(VolleySingleton singleton){
-//        return singleton.getRequestQueue();
-//    }
+    @Singleton
+    @Provides
+    RequestQueue provideRequestQueue(VolleySingleton singleton){
+        return singleton.getRequestQueue();
+    }
 }

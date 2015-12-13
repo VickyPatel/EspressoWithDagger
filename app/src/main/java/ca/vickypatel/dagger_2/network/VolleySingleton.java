@@ -17,8 +17,8 @@ public class VolleySingleton {
     private ImageLoader imageLoader;
 
     private VolleySingleton() {
-        mRequestQueue = Volley.newRequestQueue(MyApplication.getAppContext());
-        imageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
+         mRequestQueue = Volley.newRequestQueue(MyApplication.getAppContext());
+         imageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
 
             private LruCache<String, Bitmap> cache = new LruCache<>((int) Runtime.getRuntime().maxMemory() / 1024 / 8);
 

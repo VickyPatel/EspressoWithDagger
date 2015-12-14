@@ -3,9 +3,11 @@ package ca.vickypatel.dagger_2.extras;
 import android.app.Application;
 import android.content.Context;
 
+
 import ca.vickypatel.dagger_2.component.DaggerNetworkComponent;
 import ca.vickypatel.dagger_2.component.NetworkComponent;
 import ca.vickypatel.dagger_2.component.StorageComponent;
+import ca.vickypatel.dagger_2.modules.DatabaseModule;
 import ca.vickypatel.dagger_2.modules.NetworkModule;
 import ca.vickypatel.dagger_2.modules.StorageModule;
 
@@ -20,7 +22,12 @@ public class MyApplication extends Application{
     @Override
     public void onCreate(){
         super.onCreate();
-        component = DaggerNetworkComponent.builder().storageModule(new StorageModule(this)).networkModule(new NetworkModule()).build();
+        component = DaggerNetworkComponent
+                .builder()
+                .storageModule(new StorageModule(this))
+                .networkModule(new NetworkModule())
+                .databaseModule(new DatabaseModule(this))
+                .build();
 
         instance = this;
     }

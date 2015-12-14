@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import ca.vickypatel.dagger_2.activity.DisplayActivity;
 import ca.vickypatel.dagger_2.activity.ScrollingActivity;
+import ca.vickypatel.dagger_2.modules.DatabaseModule;
 import ca.vickypatel.dagger_2.modules.NetworkModule;
 import ca.vickypatel.dagger_2.modules.StorageModule;
 import dagger.Component;
@@ -13,7 +14,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {NetworkModule.class, StorageModule.class})
+@Component(modules = {NetworkModule.class, StorageModule.class, DatabaseModule.class})
 public interface NetworkComponent {
     void inject(ScrollingActivity scrollingActivity);
     void inject(DisplayActivity displayActivity);

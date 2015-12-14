@@ -26,6 +26,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import ca.vickypatel.dagger_2.R;
+import ca.vickypatel.dagger_2.adapter.DatabaseAdapter;
 import ca.vickypatel.dagger_2.extras.MyApplication;
 import ca.vickypatel.dagger_2.network.VolleySingleton;
 
@@ -40,6 +41,9 @@ public class DisplayActivity extends AppCompatActivity {
     @Inject
     public RequestQueue requestQueue;
 
+    @Inject
+    public DatabaseAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +51,9 @@ public class DisplayActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Initialize all inject variables
         ((MyApplication)getApplication()).getComponent().inject(this);
+
 
         String string = sharedPreferences.getString("Name", "");
         TextView textView = (TextView) findViewById(R.id.text);
@@ -72,7 +78,11 @@ public class DisplayActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         System.out.println(response.toString());
                         try {
-                            Toast.makeText(getApplicationContext(), response.getString("title"), Toast.LENGTH_LONG).show();
+
+                            long totalRows = adapter.insertIntoTest(response.getString("body"), response.getString("title"));
+                            System.out.println("Total rows inserted " + totalRows);
+                            Toast.makeText(getApplicationContext(), "Total rows inserted " +totalRows, Toast.LENGTH_LONG).show();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

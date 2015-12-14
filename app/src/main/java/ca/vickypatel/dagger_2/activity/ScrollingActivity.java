@@ -29,6 +29,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import ca.vickypatel.dagger_2.R;
+import ca.vickypatel.dagger_2.adapter.DatabaseAdapter;
 import ca.vickypatel.dagger_2.extras.MyApplication;
 import ca.vickypatel.dagger_2.network.VolleySingleton;
 
@@ -42,6 +43,9 @@ public class ScrollingActivity extends AppCompatActivity {
 
     @Inject
     public RequestQueue requestQueue;
+
+    @Inject
+    public DatabaseAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

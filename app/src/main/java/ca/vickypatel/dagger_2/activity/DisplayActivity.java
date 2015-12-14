@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import ca.vickypatel.dagger_2.R;
 import ca.vickypatel.dagger_2.adapter.DatabaseAdapter;
@@ -32,8 +33,14 @@ import ca.vickypatel.dagger_2.network.VolleySingleton;
 
 public class DisplayActivity extends AppCompatActivity {
 
+
     @Inject
-    SharedPreferences sharedPreferences;
+    @Named("default")
+    public SharedPreferences defaultSharedPreferences;
+
+    @Inject
+    @Named("secret")
+    public SharedPreferences secretSharedPreferences;
 
     @Inject
     public VolleySingleton volleySingleton;
@@ -55,9 +62,11 @@ public class DisplayActivity extends AppCompatActivity {
         ((MyApplication)getApplication()).getComponent().inject(this);
 
 
-        String string = sharedPreferences.getString("Name", "");
+        String string = defaultSharedPreferences.getString("Name", "");
         TextView textView = (TextView) findViewById(R.id.text);
-        textView.setText("Hello " + string);
+        String string1 = secretSharedPreferences.getString("Last Name", "");
+        textView.setText("Hello " + string + " from default sharedPref" + "\nHello " + string1 + " from secret sharedPref");
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

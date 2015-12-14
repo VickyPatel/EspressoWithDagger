@@ -1,8 +1,10 @@
 package ca.vickypatel.dagger_2.modules;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import ca.vickypatel.dagger_2.extras.CustomScope;
@@ -24,7 +26,15 @@ public class StorageModule {
 
     @CustomScope
     @Provides
-    SharedPreferences provideSharedPreferences(){
+    @Named("default")
+    SharedPreferences provideDefaultSharedPreferences(){
         return PreferenceManager.getDefaultSharedPreferences(application);
+    }
+
+    @CustomScope
+    @Provides
+    @Named("secret")
+    SharedPreferences provideSecretSharedPreferences(){
+        return  application.getSharedPreferences("test_file", Context.MODE_PRIVATE);
     }
 }

@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import ca.vickypatel.dagger_2.R;
 import ca.vickypatel.dagger_2.adapter.DatabaseAdapter;
@@ -36,7 +37,12 @@ import ca.vickypatel.dagger_2.network.VolleySingleton;
 public class ScrollingActivity extends AppCompatActivity {
 
     @Inject
-    public SharedPreferences sharedPreferences;
+    @Named("default")
+    public SharedPreferences defaultSharedPreferences;
+
+    @Inject
+    @Named("secret")
+    public SharedPreferences secretSharedPreferences;
 
     @Inject
     public VolleySingleton volleySingleton;
@@ -57,9 +63,15 @@ public class ScrollingActivity extends AppCompatActivity {
 
         ((MyApplication) getApplication()).getComponent().inject(this);
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = defaultSharedPreferences.edit();
         editor.putString("Name", "vicky");
         editor.apply();
+
+
+        SharedPreferences.Editor editor2 = secretSharedPreferences.edit();
+        editor2.putString("Last Name", "patel");
+        editor2.apply();
+
 
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {

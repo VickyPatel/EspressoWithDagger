@@ -2,6 +2,9 @@ package ca.vickypatel.dagger_2.modules;
 
 import android.app.Application;
 
+import javax.inject.Singleton;
+
+import ca.vickypatel.dagger_2.extras.CustomScope;
 import dagger.Module;
 import dagger.Provides;
 
@@ -17,6 +20,7 @@ public class ApplicationModule {
         mApplication = application;
     }
 
+    @Singleton
     @Provides
     Application provideApplication(){
         return mApplication;

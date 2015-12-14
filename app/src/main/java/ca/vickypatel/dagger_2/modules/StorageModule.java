@@ -5,6 +5,7 @@ import android.preference.PreferenceManager;
 
 import javax.inject.Singleton;
 
+import ca.vickypatel.dagger_2.extras.CustomScope;
 import ca.vickypatel.dagger_2.extras.MyApplication;
 import dagger.Module;
 import dagger.Provides;
@@ -21,7 +22,7 @@ public class StorageModule {
         this.application = application;
     }
 
-
+    @CustomScope
     @Provides
     SharedPreferences provideSharedPreferences(){
         return PreferenceManager.getDefaultSharedPreferences(application);

@@ -5,6 +5,7 @@ import android.content.Context;
 import javax.inject.Singleton;
 
 import ca.vickypatel.dagger_2.adapter.DatabaseAdapter;
+import ca.vickypatel.dagger_2.extras.CustomScope;
 import dagger.Module;
 import dagger.Provides;
 
@@ -18,7 +19,7 @@ public class DatabaseModule {
         this.context = context;
     }
 
-
+    @CustomScope
     @Provides
     DatabaseAdapter provideDatabaseAdapter(){
         return new DatabaseAdapter(context);

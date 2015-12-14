@@ -14,13 +14,13 @@ import dagger.Provides;
 @Module
 public class NetworkModule {
 
-    @Singleton
+
     @Provides
     VolleySingleton provideVolleySingleton(){
         return VolleySingleton.getInstance();
     }
 
-    @Singleton
+
     @Provides
     RequestQueue provideRequestQueue(VolleySingleton singleton){
         return singleton.getRequestQueue();

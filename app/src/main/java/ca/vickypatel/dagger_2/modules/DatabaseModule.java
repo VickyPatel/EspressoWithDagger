@@ -18,7 +18,7 @@ public class DatabaseModule {
         this.context = context;
     }
 
-    @Singleton
+
     @Provides
     DatabaseAdapter provideDatabaseAdapter(){
         return new DatabaseAdapter(context);

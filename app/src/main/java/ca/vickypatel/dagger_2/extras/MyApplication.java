@@ -3,10 +3,12 @@ package ca.vickypatel.dagger_2.extras;
 import android.app.Application;
 import android.content.Context;
 
-
+import ca.vickypatel.dagger_2.component.ApplicationComponent;
+import ca.vickypatel.dagger_2.component.DaggerApplicationComponent;
 import ca.vickypatel.dagger_2.component.DaggerNetworkComponent;
 import ca.vickypatel.dagger_2.component.NetworkComponent;
 import ca.vickypatel.dagger_2.component.StorageComponent;
+import ca.vickypatel.dagger_2.modules.ApplicationModule;
 import ca.vickypatel.dagger_2.modules.DatabaseModule;
 import ca.vickypatel.dagger_2.modules.NetworkModule;
 import ca.vickypatel.dagger_2.modules.StorageModule;
@@ -16,14 +18,23 @@ import ca.vickypatel.dagger_2.modules.StorageModule;
  */
 public class MyApplication extends Application{
 
-    NetworkComponent component;
+    ApplicationComponent applicationComponent;
+    NetworkComponent networkComponent;
     private static MyApplication instance;
 
     @Override
     public void onCreate(){
         super.onCreate();
-        component = DaggerNetworkComponent
+
+        applicationComponent = DaggerApplicationComponent
                 .builder()
+                .applicationModule(new ApplicationModule(this))
+                .build();
+
+
+        networkComponent = DaggerNetworkComponent
+                .builder()
+                .applicationComponent(applicationComponent)
                 .storageModule(new StorageModule(this))
                 .networkModule(new NetworkModule())
                 .databaseModule(new DatabaseModule(this))
@@ -32,8 +43,11 @@ public class MyApplication extends Application{
         instance = this;
     }
 
+    public ApplicationComponent getApplicationComponent(){
+        return applicationComponent;
+    }
     public NetworkComponent getComponent(){
-        return component;
+        return networkComponent;
     }
 
     public static MyApplication getsInstance(){

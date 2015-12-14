@@ -13,8 +13,9 @@ import dagger.Component;
  * Created by vicky on 11/12/15.
  */
 
-@Singleton
-@Component(modules = {NetworkModule.class, StorageModule.class, DatabaseModule.class})
+
+@Component(modules = {NetworkModule.class, StorageModule.class, DatabaseModule.class},
+dependencies = ApplicationComponent.class)
 public interface NetworkComponent {
     void inject(ScrollingActivity scrollingActivity);
     void inject(DisplayActivity displayActivity);

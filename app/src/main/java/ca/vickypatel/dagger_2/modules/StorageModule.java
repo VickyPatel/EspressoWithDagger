@@ -21,7 +21,7 @@ public class StorageModule {
         this.application = application;
     }
 
-    @Singleton
+
     @Provides
     SharedPreferences provideSharedPreferences(){
         return PreferenceManager.getDefaultSharedPreferences(application);

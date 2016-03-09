@@ -11,6 +11,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "ca.vickypatel.dagger_2.TestRunner"
     }
     buildTypes {
         release {
@@ -23,12 +24,18 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:design:23.0.1'
 
     compile 'com.mcxiaoke.volley:library:1.0.19'
 
     apt 'com.google.dagger:dagger-compiler:2.0.1' //needed for source code generation
     compile 'com.google.dagger:dagger:2.0.1' //dagger itself
     provided 'org.glassfish:javax.annotation:10.0-b28' //needed to resolve compilation errors, thanks to tutplus.org for finding the dependency
+
+
+    // Testing-only dependencies
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestApt "com.google.dagger:dagger-compiler:2.0.1"
 }

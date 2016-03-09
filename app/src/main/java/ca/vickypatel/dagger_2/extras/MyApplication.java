@@ -54,6 +54,10 @@ public class MyApplication extends Application{
         return instance;
     }
 
+    public void setNetworkComponent(NetworkComponent appComponent) {
+        networkComponent = appComponent;
+    }
+
     public static Context getAppContext(){
         return instance.getApplicationContext();
     }

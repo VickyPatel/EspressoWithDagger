@@ -133,6 +133,11 @@ public class ScrollingActivity extends AppCompatActivity {
                         System.out.println(response.toString());
                         try {
                             Toast.makeText(getApplicationContext(),response.getString("title"),Toast.LENGTH_LONG).show();
+
+                            SharedPreferences.Editor editor = secretSharedPreferences.edit();
+                            editor.putString("response", response.getString("title"));
+                            editor.apply();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
